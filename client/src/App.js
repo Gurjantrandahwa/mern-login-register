@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import React from "react";
 import Register from "./Components/Register/Register";
 import Login from "./Components/Login/Login";
@@ -7,17 +7,16 @@ import Home from "./Components/Home/Home";
 
 function App() {
     return <BrowserRouter>
-        <div className="App">
+        <div className={"app"}>
             <Routes>
-                {/*<Route path={"/"} element={<Home/>}/>*/}
+                <Route path={"/"} element={<Home/>}/>
                 <Route path={"/register"} element={<Register/>}/>
                 <Route path={"/login"} element={<Login/>}/>
                 <Route path="*" element={<Navigate to={"/"}/>}/>
             </Routes>
         </div>
+
     </BrowserRouter>
-
-
 }
 
 export default App;

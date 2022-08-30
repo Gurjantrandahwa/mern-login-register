@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
-import jwt from "jsonwebtoken";
+import {Link} from "react-router-dom";
+import "./home.scss";
 
 
 function Home() {
@@ -22,46 +22,28 @@ function Home() {
         console.log(data)
     }
 
-    async function updateQuote(event) {
-        event.preventDefault()
-        const req = await fetch("/api/home", {
-            method: 'Post',
-            headers: {
-                'Content-Type':'application/json',
-                'x-access-token': localStorage.getItem('token')
-            },body:JSON.stringify({
-                quote:tempQuote,
-            })
+    const tokenKey = "testToken";
 
-        })
-        const data = await req.json()
-        if (data.status === 'ok') {
-            setTempQuote('')
-            setQuote(data.quote)
-        } else {
-            alert(data.error)
-        }
-        console.log(data)
+    function updateQuote() {
+        const token = window.localStorage.getItem(tokenKey)
+
     }
 
-    const navigate = useNavigate()
     useEffect(() => {
         const token = localStorage.getItem('token')
         if (token) {
-            const user = jwt.decode()
+            const user = true
             if (!user) {
                 localStorage.removeItem('token')
-                navigate("/login")
             } else {
                 populateQuote()
             }
         }
     }, [])
 
-    return <div>
-        <Link to={"/register"}>
-            <button type={"submit"} value={"Register"}>Register</button>
-        </Link>
+    return <div className={"home-page"}>
+
+        {/*<h1>login successfully</h1>*/}
         <h1>Hello:{quote || 'Not found'}</h1>
         <form onSubmit={updateQuote}>
             <input
@@ -73,6 +55,9 @@ function Home() {
                 }}/>
             <input type={'submit'} value={'update quote'}/>
         </form>
+        <Link to={"/register"}>
+            <button type={"submit"} value={"Register"}>Register</button>
+        </Link>
     </div>
 }
 

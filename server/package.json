@@ -4,8 +4,10 @@
   "main": "index.js",
   "author": "gujant",
   "license": "MIT",
+
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "nodemon models/index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -1,8 +1,9 @@
 import React, {useState} from "react";
-import "./login.css";
-import {Link} from "react-router-dom";
+import "./login.scss";
+import {Link, useNavigate} from "react-router-dom";
 
 function Login() {
+    const navigate=useNavigate()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -20,24 +21,23 @@ function Login() {
         })
         const data = await response.json()
         if (data.user) {
-            alert('login successful')
-            window.location.href="/"
+            navigate("/")
         } else {
             alert("please check your email and password")
         }
-
     }
-
     return <div>
         <h1>Login</h1>
         <form onSubmit={loginUser}>
             <input type={"email"}
                    value={email}
+                   required
                    onChange={(e) => setEmail(e.target.value)}
                    placeholder={"Email"}/><br/>
 
             <input type={"password"}
                    value={password}
+                   required
                    onChange={(e) => setPassword(e.target.value)}
                    placeholder={"Password"}/><br/>
             <button type={"submit"} value={"Login"}>Login</button>
