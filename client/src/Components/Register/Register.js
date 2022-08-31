@@ -1,9 +1,12 @@
 import React, {useId, useState} from "react";
 import "./register.scss";
 import {Link, useNavigate} from "react-router-dom";
+import {Button, IconButton} from "@material-ui/core";
+import {FaFacebookF, FaLinkedinIn} from "react-icons/fa";
+import {AiOutlineGooglePlus} from "react-icons/ai";
 
 function Register() {
-    const [name, setName] = useState("")
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -17,7 +20,6 @@ function Register() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                name,
                 email,
                 password,
             }),
@@ -31,34 +33,50 @@ function Register() {
         }
     }
 
-    return <div className={"register"}>
+    return <div className={"container"}>
+        <div className={"register-container"}>
+            <div className={"form-container"}>
+                <form onSubmit={registerUser}>
+                    <h2>Create Account</h2>
+                    <div className={"icon-button"}>
+                        <IconButton>
+                            <FaFacebookF/>
+                        </IconButton>
+                        <IconButton>
+                            <AiOutlineGooglePlus/>
+                        </IconButton>
+                        <IconButton>
+                            <FaLinkedinIn/>
+                        </IconButton>
+                    </div>
+                    <Link to={"/login"}>
+                        <p>or login your account</p>
+                    </Link>
 
-        <form onSubmit={registerUser}>
-            <h1>Register</h1>
-            <input type={"name"}
-                   required
-                   value={name}
-                   onChange={(e) => setName(e.target.value)}
-                   placeholder={"Name"}/><br/>
+                    <input type={"email"}
+                           value={email}
+                           required
+                           autoComplete={"off"}
+                           onChange={(e) => setEmail(e.target.value)}
+                           placeholder={"Email"}/>
 
-            <input type={"email"}
-                   value={email}
-                   required
-                   autoComplete={"off"}
-                   onChange={(e) => setEmail(e.target.value)}
-                   placeholder={"Email"}/><br/>
+                    <input type={"password"}
+                           value={password}
+                           required
+                           onChange={(e) => setPassword(e.target.value)}
+                           placeholder={"Password"}/><br/>
+                    <Button className={"sign-button"} type={"submit"} value={"Register"}>Sign up</Button>
+                </form>
+            </div>
+            <div className={"text-container"}>
+                <div className={"text-container-text"}>
+                    <h1>Hi There!</h1>
+                    <p>Enter Your personal details to open an
+                        account with us</p>
+                </div>
+            </div>
+        </div>
 
-            <input type={"password"}
-                   value={password}
-                   required
-                   onChange={(e) => setPassword(e.target.value)}
-                   placeholder={"Password"}/><br/>
-            <button type={"submit"} value={"Register"}>Register</button>
-            <Link to={"/login"}>
-                <button type={"submit"} value={"Login"}>Login</button>
-            </Link>
-
-        </form>
     </div>
 }
 
