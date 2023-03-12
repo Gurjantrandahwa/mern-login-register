@@ -45,33 +45,33 @@ app.post("/api/login", async (req, res) => {
     res.send({status: "error", user: false})
     console.log(user)
 })
-app.get("/api/home", async (req, res) => {
-    const token = req.header['x-access-token']
-    try {
-        const decoded = jwt.verify(token, 'secret123')
-        const email = decoded.email
-        const user = await User.findOne({email: email})
-        return {status: "ok", quote: user.quote}
-    } catch (error) {
-        console.log(error)
-        res.send({status: "error", error: "invalid token"})
-    }
-})
-
-app.post("/api/home", async (req, res) => {
-    const token = req.header['x-access-token']
-    try {
-        const decoded = jwt.verify(token, 'secret123')
-        const email = decoded.email
-        await User.updateOne({email: email}, {
-            $set: {quote: req.body.quote}
-        })
-        return res.send({status: "ok"})
-    } catch (error) {
-        console.log(error)
-        res.send({status: "error", error: "invalid token"})
-    }
-})
+// app.get("/api/home", async (req, res) => {
+//     const token = req.header['x-access-token']
+//     try {
+//         const decoded = jwt.verify(token, 'secret123')
+//         const email = decoded.email
+//         const user = await User.findOne({email: email})
+//         return {status: "ok", quote: user.quote}
+//     } catch (error) {
+//         console.log(error)
+//         res.send({status: "error", error: "invalid token"})
+//     }
+// })
+//
+// app.post("/api/home", async (req, res) => {
+//     const token = req.header['x-access-token']
+//     try {
+//         const decoded = jwt.verify(token, 'secret123')
+//         const email = decoded.email
+//         await User.updateOne({email: email}, {
+//             $set: {quote: req.body.quote}
+//         })
+//         return res.send({status: "ok"})
+//     } catch (error) {
+//         console.log(error)
+//         res.send({status: "error", error: "invalid token"})
+//     }
+// })
 
 app.listen(3001, () => {
     console.log("server started on 3001")
